@@ -75,5 +75,45 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Toast.makeText(MainActivity.this, "Hello User!", Toast.LENGTH_LONG).show();
+
+        // ==========================================
+        // STEP-BY-STEP CALCULATOR IMPLEMENTATION GUIDE:
+        // ==========================================
+        // Step 1: In your activity_main.xml, add:
+        //         - Two PlainText (EditText) views for input numbers (e.g., id: @+id/inputNum1, @+id/inputNum2)
+        //         - One Button to trigger the calculation (e.g., id: @+id/calcButton)
+        //         - One TextView to display the result (e.g., id: @+id/resultTextView)
+        //
+        // Step 2: Initialize those UI components inside onCreate() like below:
+        // final EditText num1 = findViewById(R.id.inputNum1);
+        // final EditText num2 = findViewById(R.id.inputNum2);
+        // final Button calcButton = findViewById(R.id.calcButton);
+        // final TextView resultView = findViewById(R.id.resultTextView);
+        //
+        // Step 3: Set up an OnClickListener for your calculator button:
+        // calcButton.setOnClickListener(new View.OnClickListener() {
+        //     @Override
+        //     public void onClick(View v) {
+        //         // Step 4: Extract text from EditText fields and check if they are empty
+        //         String s1 = num1.getText().toString();
+        //         String s2 = num2.getText().toString();
+        //
+        //         if (!s1.isEmpty() && !s2.isEmpty()) {
+        //             // Step 5: Convert String inputs to numeric values (double or int)
+        //             double n1 = Double.parseDouble(s1);
+        //             double n2 = Double.parseDouble(s2);
+        //
+        //             // Step 6: Perform the math operation (e.g., Addition)
+        //             double sum = n1 + n2;
+        //
+        //             // Step 7: Display the calculated result on the TextView
+        //             resultView.setText("Result: " + sum);
+        //         } else {
+        //             // Show a warning if inputs are blank
+        //             Toast.makeText(MainActivity.this, "Please enter both numbers", Toast.LENGTH_SHORT).show();
+        //         }
+        //     }
+        // });
+        // ==========================================
     }
 }
