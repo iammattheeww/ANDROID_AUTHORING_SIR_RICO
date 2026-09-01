@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 // IMAGE VIEW
                 final ImageView imageView = findViewById(R.id.burgerking);
             }
-
-
         });
+
+        Toast.makeText(MainActivity.this, "Hello User!", Toast.LENGTH_LONG).show();
     }
 }
