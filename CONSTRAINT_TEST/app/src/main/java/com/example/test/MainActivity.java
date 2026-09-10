@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView myBottom = findViewById(R.id.myBottom);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v,insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.bottom, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
@@ -39,13 +39,20 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
               int id = menuItem.getItemId();
-              if(id==R.id.dashboard_id){
-                  Toast.makeText(MainActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
-              } else {
-                  Toast.makeText(MainActivity.this, "Welcome to Carts!", Toast.LENGTH_SHORT).show();
+              if(id==R.id.home_id){
+                  Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+              } else if (id==R.id.search_id){
+                  Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
+              } else if (id==R.id.favorites){
+                  Toast.makeText(MainActivity.this, "Favorites", Toast.LENGTH_SHORT).show();
+              }
+              else if (id==R.id.profile){
+                  Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
               }
                return true;
            }
        });
+
+        Toast.makeText(MainActivity.this, "Hello User!", Toast.LENGTH_LONG).show();
     }
 }
