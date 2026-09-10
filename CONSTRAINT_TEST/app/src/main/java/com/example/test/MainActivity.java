@@ -22,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+                ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         BottomNavigationView myBottom = findViewById(R.id.myBottom);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v,insets) -> {
@@ -44,13 +44,6 @@ public class MainActivity extends AppCompatActivity {
               } else {
                   Toast.makeText(MainActivity.this, "Welcome to Carts!", Toast.LENGTH_SHORT).show();
               }
-
-               if(id==R.id.cart_id){
-                   Toast.makeText(MainActivity.this, "Welcome to Carts!", Toast.LENGTH_SHORT).show();
-               } else {
-                   Toast.makeText(MainActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
-               }
-
                return true;
            }
        });
