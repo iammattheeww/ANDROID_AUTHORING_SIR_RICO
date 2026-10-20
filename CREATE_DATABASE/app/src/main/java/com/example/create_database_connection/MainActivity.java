@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             String fname = getInput.getText().toString().trim();
 
-            URL url = new URL("http://192.168.1.11/androidinsert.php");
+            // URL url = new URL("http://192.168.1.11/androidinsert.php");
+            URL url = new URL("http://10.0.2.2/directory/androidinsert.php");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
@@ -207,7 +208,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             String fname = getInput.getText().toString().trim();
 
-            URL url = new URL("http://10.100.7.158/androiddelete.php");
+            // URL url = new URL("http://10.100.7.158/androiddelete.php");
+            URL url = new URL("http://10.0.2.2/directory/androiddelete.php");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
@@ -248,7 +250,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Change to your actual local IP (same as your XAMPP server)
-            URL url = new URL("http://10.100.7.158/androidupdate.php");
+            // URL url = new URL("http://10.100.7.158/androidupdate.php");
+            URL url = new URL("http://10.0.2.2/directory/androidupdate.php");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
