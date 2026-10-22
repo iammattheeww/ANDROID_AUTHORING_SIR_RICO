@@ -97,7 +97,10 @@ public class MainActivity extends AppCompatActivity {
     Button btnInsert;
     Button btnDelete;
     Button btnUpdate;
-    EditText getInput;
+    EditText getInputFname;
+    EditText getInputLname;
+    EditText getInputContacts;
+    EditText getInputAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,15 +108,22 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // Bind all UI components from activity_main.xml
         myResult = findViewById(R.id.dbSelect);
         mySelect = findViewById(R.id.btnSelect);
         btnInsert = findViewById(R.id.btnInsert);
         btnDelete = findViewById(R.id.btnDelete);
         btnUpdate = findViewById(R.id.btnUpdate);
-        getInput = findViewById(R.id.myfname);
-        // Allow network operation on main thread (for quick demo only)
+
+        getInputFname = findViewById(R.id.myfname);
+        getInputLname = findViewById(R.id.mylname);
+        getInputContacts = findViewById(R.id.mycontacts);
+        getInputAddress = findViewById(R.id.myaddress);
+
+        // Allow network operation on main thread (for lab/demo purposes)
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 toFetch();
             }
         });
+
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,8 +153,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    // ANDROID SELECT
+    // READ (SELECT)
     private void toFetch() {
         try {
             URL url = new URL("http://10.0.2.2/directory/androidselect.php");
@@ -159,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             reader.close();
-
             myResult.setText(sb.toString());
 
         } catch (Exception e) {
@@ -167,18 +176,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // ANDROID INSERT
+    // CREATE (INSERT) - Sends fname, lname, contacts, address
     private void insertData() {
         try {
-            String fname = getInput.getText().toString().trim();
+            String fname = getInputFname.getText().toString().trim();
+            String lname = getInputLname.getText().toString().trim();
+            String contacts = getInputContacts.getText().toString().trim();
+            String address = getInputAddress.getText().toString().trim();
 
-            // URL url = new URL("http://192.168.1.11/androidinsert.php");
             URL url = new URL("http://10.0.2.2/directory/androidinsert.php");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
 
-            String postData = "fname=" + URLEncoder.encode(fname, "UTF-8");
+            String postData = "fname=" + URLEncoder.encode(fname, "UTF-8") +
+                    "&lname=" + URLEncoder.encode(lname, "UTF-8") +
+                    "&contacts=" + URLEncoder.encode(contacts, "UTF-8") +
+                    "&address=" + URLEncoder.encode(address, "UTF-8");
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
@@ -203,12 +217,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // ANDROID DELETE
+    // DELETE - Deletes record based on target input field
     private void deleteData() {
         try {
-            String fname = getInput.getText().toString().trim();
+            String fname = getInputFname.getText().toString().trim();
 
-            // URL url = new URL("http://10.100.7.158/androiddelete.php");
+            if (fname.isEmpty()) {
+                myResult.setText("Please enter First Name to delete.");
+                return;
+            }
+
             URL url = new URL("http://10.0.2.2/directory/androiddelete.php");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -239,24 +257,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // ANDROID UPDATE
+    // UPDATE - Updates record matching fname with new lname, contacts, and address
     private void updateData() {
         try {
-            String fname = getInput.getText().toString().trim();
+            String fname = getInputFname.getText().toString().trim();
+            String lname = getInputLname.getText().toString().trim();
+            String contacts = getInputContacts.getText().toString().trim();
+            String address = getInputAddress.getText().toString().trim();
 
             if (fname.isEmpty()) {
-                myResult.setText("Please enter a name to update.");
+                myResult.setText("Please enter First Name to specify which record to update.");
                 return;
             }
 
-            // Change to your actual local IP (same as your XAMPP server)
-            // URL url = new URL("http://10.100.7.158/androidupdate.php");
             URL url = new URL("http://10.0.2.2/directory/androidupdate.php");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
 
-            String postData = "fname=" + URLEncoder.encode(fname, "UTF-8");
+            String postData = "fname=" + URLEncoder.encode(fname, "UTF-8") +
+                    "&lname=" + URLEncoder.encode(lname, "UTF-8") +
+                    "&contacts=" + URLEncoder.encode(contacts, "UTF-8") +
+                    "&address=" + URLEncoder.encode(address, "UTF-8");
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
@@ -268,11 +290,12 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
             String line;
+
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            reader.close();
 
+            reader.close();
             myResult.setText(sb.toString());
 
         } catch (Exception e) {
@@ -280,4 +303,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
